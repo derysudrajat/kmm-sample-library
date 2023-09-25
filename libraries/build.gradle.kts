@@ -48,6 +48,35 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
+
+        val androidMain by getting {
+            dependencies {
+                dependsOn(commonMain)
+                implementation("io.ktor:ktor-client-android:$ktorVersion")
+            }
+        }
+
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
+        }
+        val iosTest by creating{
+            dependsOn(commonTest)
+        }
+
+
+        val iosSimulatorArm64Main by sourceSets.getting
+        val iosSimulatorArm64Test by sourceSets.getting
+
+        iosSimulatorArm64Main.dependsOn(iosMain)
+        iosSimulatorArm64Test.dependsOn(iosTest)
+
     }
 }
 

@@ -1,8 +1,31 @@
-plugins {
-    //trick: for the same plugin versions in all sub-modules
-    id("com.android.library").version("7.4.2").apply(false)
-    kotlin("multiplatform").version("1.6.21").apply(false)
+import java.net.URI
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://maven.google.com")
+        maven("https://jitpack.io")
+    }
+
+    dependencies {
+        classpath(kotlin("gradle-plugin", "1.6.21"))
+        classpath("com.android.tools.build:gradle:7.4.2")
+    }
 }
+
+allprojects {
+
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = URI.create("https://maven.google.com") }
+        maven { url = URI.create("https://jitpack.io") }
+    }
+}
+
+
+
 group = "io.github.derysudrajat.kmmlib"
 version = "0.0.2"
 
